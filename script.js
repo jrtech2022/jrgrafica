@@ -161,6 +161,27 @@ const servicos = [
         }))
 ];
 
+// Inicializar cópia dos preços originais para administração
+servicosOriginais = JSON.parse(JSON.stringify(servicos));
+
+// Carregar preços salvos do localStorage ao iniciar
+(function() {
+    const precosSalvos = localStorage.getItem('servicos_precos');
+    if (precosSalvos) {
+        try {
+            const precos = JSON.parse(precosSalvos);
+            precos.forEach(precoSalvo => {
+                const servico = servicos.find(s => s.nome === precoSalvo.nome);
+                if (servico) {
+                    servico.valor = precoSalvo.valor;
+                }
+            });
+        } catch (e) {
+            console.error('Erro ao carregar preços salvos:', e);
+        }
+    }
+})();
+
 // Função para converter unidades para centímetros
 function converterParaCm(valor, unidade) {
     switch (unidade) {
@@ -2399,6 +2420,8 @@ window.compararPrecos = function() {
 
 // Event listeners
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOMContentLoaded - Iniciando inicialização...');
+    
     // Sistema de navegação
     document.querySelectorAll('.nav-item').forEach(item => {
         item.addEventListener('click', function(e) {
@@ -2626,4 +2649,384 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
+
+    // Inicializar administração de preços
+    try {
+        inicializarAdminPrecos();
+    } catch (error) {
+        console.error('Erro ao inicializar administração de preços:', error);
+    }
+    
+    console.log('DOMContentLoaded - Inicialização concluída!');
 });
+
+// =========================================================================
+// ADMINISTRAÇÃO DE PREÇOS
+// =========================================================================
+
+// Carregar preços salvos do localStorage
+function carregarPrecosSalvos() {
+    const precosSalvos = localStorage.getItem('servicos_precos');
+    if (precosSalvos) {
+        try {
+            const precos = JSON.parse(precosSalvos);
+            // Atualizar servicos com os preços salvos
+            precos.forEach(precoSalvo => {
+                const servico = servicos.find(s => s.nome === precoSalvo.nome);
+                if (servico) {
+                    servico.valor = precoSalvo.valor;
+                }
+            });
+            return true;
+        } catch (e) {
+            console.error('Erro ao carregar preços salvos:', e);
+            return false;
+        }
+    }
+    return false;
+}
+
+// Salvar preços no localStorage
+function salvarPrecosNoStorage() {
+    const precosParaSalvar = servicos.map(s => ({
+        nome: s.nome,
+        valor: s.valor
+    }));
+    localStorage.setItem('servicos_precos', JSON.stringify(precosParaSalvar));
+}
+
+// Inicializar página de administração
+function inicializarAdminPrecos() {
+    try {
+        // Event listeners para filtros
+        const buscaInput = document.getElementById('admin-busca-precos');
+        const filtroTipo = document.getElementById('admin-filtro-tipo');
+        
+        if (buscaInput && typeof debounce === 'function') {
+            buscaInput.addEventListener('input', debounce(function() {
+                try {
+                    renderizarTabelaAdmin();
+                } catch (error) {
+                    console.error('Erro ao renderizar tabela admin:', error);
+                }
+            }, 300));
+        }
+        
+        if (filtroTipo) {
+            filtroTipo.addEventListener('change', function() {
+                try {
+                    renderizarTabelaAdmin();
+                } catch (error) {
+                    console.error('Erro ao renderizar tabela admin:', error);
+                }
+            });
+        }
+        
+        // Renderizar tabela quando a página for exibida
+        const adminPage = document.getElementById('page-admin-precos');
+        if (adminPage) {
+            const observer = new MutationObserver(function(mutations) {
+                mutations.forEach(function(mutation) {
+                    if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
+                        if (adminPage.style.display !== 'none') {
+                            try {
+                                renderizarTabelaAdmin();
+                            } catch (error) {
+                                console.error('Erro ao renderizar tabela admin:', error);
+                            }
+                        }
+                    }
+                });
+            });
+            observer.observe(adminPage, { attributes: true });
+        }
+    } catch (error) {
+        console.error('Erro na inicialização de admin preços:', error);
+    }
+}
+
+// Função auxiliar para criar ID único baseado no nome do serviço
+function criarIdServico(nome) {
+    return 'preco-' + nome.replace(/[^a-zA-Z0-9]/g, '_').toLowerCase();
+}
+
+// Renderizar tabela de administração
+function renderizarTabelaAdmin() {
+    try {
+        const tbody = document.getElementById('admin-tbody-precos');
+        if (!tbody) return;
+        
+        // Verificar se servicos está definido
+        if (!servicos || !Array.isArray(servicos)) {
+            console.error('servicos não está definido ou não é um array');
+            return;
+        }
+        
+        const busca = document.getElementById('admin-busca-precos')?.value.toLowerCase() || '';
+        const filtroTipo = document.getElementById('admin-filtro-tipo')?.value || 'todos';
+        
+        // Filtrar serviços
+        let servicosFiltrados = servicos.filter(servico => {
+            if (!servico || !servico.nome) return false;
+            const matchBusca = servico.nome.toLowerCase().includes(busca) || 
+                              (servico.descricao && servico.descricao.toLowerCase().includes(busca));
+            const matchTipo = filtroTipo === 'todos' || servico.tipo === filtroTipo;
+            return matchBusca && matchTipo;
+        });
+        
+        tbody.innerHTML = '';
+        
+        servicosFiltrados.forEach((servico) => {
+        const tr = document.createElement('tr');
+        const badgeClass = `badge-${servico.tipo}`;
+        const isPromocao = servico.categoria === 'promocao';
+        const isCombo = servico.tipo === 'combo';
+        const servicoId = criarIdServico(servico.nome);
+        
+        // Criar elementos de forma segura
+        const tdNome = document.createElement('td');
+        const strongNome = document.createElement('strong');
+        strongNome.textContent = servico.nome;
+        tdNome.appendChild(strongNome);
+        
+        const tdDesc = document.createElement('td');
+        tdDesc.textContent = servico.descricao;
+        
+        const tdTipo = document.createElement('td');
+        const badge = document.createElement('span');
+        badge.className = `badge-tipo ${badgeClass} ${isPromocao ? 'badge-promocao' : ''}`;
+        badge.textContent = isCombo ? '🔥 Kit' : servico.tipo;
+        tdTipo.appendChild(badge);
+        
+        const tdPreco = document.createElement('td');
+        const inputPreco = document.createElement('input');
+        inputPreco.type = 'number';
+        inputPreco.id = servicoId;
+        inputPreco.value = servico.valor.toFixed(2);
+        inputPreco.step = '0.01';
+        inputPreco.min = '0';
+        inputPreco.setAttribute('data-servico-nome', servico.nome);
+        inputPreco.style.width = '100px';
+        tdPreco.appendChild(inputPreco);
+        
+        const tdActions = document.createElement('td');
+        const divActions = document.createElement('div');
+        divActions.className = 'admin-actions-buttons';
+        
+        const btnSave = document.createElement('button');
+        btnSave.className = 'admin-btn-edit';
+        btnSave.title = 'Salvar alteração';
+        btnSave.innerHTML = '<i class="fas fa-save"></i>';
+        btnSave.onclick = () => atualizarPrecoServico(servico.nome, servicoId);
+        
+        const btnReset = document.createElement('button');
+        btnReset.className = 'admin-btn-reset';
+        btnReset.title = 'Restaurar valor original';
+        btnReset.innerHTML = '<i class="fas fa-undo"></i>';
+        btnReset.onclick = () => resetarPrecoServico(servico.nome, servicoId);
+        
+        divActions.appendChild(btnSave);
+        divActions.appendChild(btnReset);
+        tdActions.appendChild(divActions);
+        
+        tr.appendChild(tdNome);
+        tr.appendChild(tdDesc);
+        tr.appendChild(tdTipo);
+        tr.appendChild(tdPreco);
+        tr.appendChild(tdActions);
+        
+        tbody.appendChild(tr);
+        });
+    } catch (error) {
+        console.error('Erro ao renderizar tabela de administração:', error);
+        const tbody = document.getElementById('admin-tbody-precos');
+        if (tbody) {
+            tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; padding: 2rem; color: #ef4444;">Erro ao carregar dados. Por favor, recarregue a página.</td></tr>';
+        }
+    }
+}
+
+// Atualizar preço de um serviço específico
+function atualizarPrecoServico(nomeServico, inputId) {
+    const input = document.getElementById(inputId);
+    if (!input) {
+        // Fallback: buscar por data attribute
+        const inputs = document.querySelectorAll(`input[data-servico-nome="${nomeServico}"]`);
+        if (inputs.length > 0) {
+            input = inputs[0];
+        } else {
+            return;
+        }
+    }
+    
+    const novoPreco = parseFloat(input.value);
+    if (isNaN(novoPreco) || novoPreco < 0) {
+        mostrarToast('Por favor, insira um preço válido.', 'warning');
+        return;
+    }
+    
+    const servico = servicos.find(s => s.nome === nomeServico);
+    if (servico) {
+        servico.valor = novoPreco;
+        salvarPrecosNoStorage();
+        mostrarToast(`Preço de "${nomeServico}" atualizado para R$ ${novoPreco.toFixed(2)}`, 'success');
+        
+        // Atualizar também na tabela de preços se estiver visível
+        if (typeof filtrarServicos === 'function') {
+            filtrarServicos();
+        }
+    }
+}
+
+// Resetar preço de um serviço para o valor original
+function resetarPrecoServico(nomeServico, inputId) {
+    const servicoOriginal = servicosOriginais.find(s => s.nome === nomeServico);
+    if (!servicoOriginal) return;
+    
+    const servico = servicos.find(s => s.nome === nomeServico);
+    if (servico) {
+        servico.valor = servicoOriginal.valor;
+        const input = document.getElementById(inputId);
+        if (input) {
+            input.value = servicoOriginal.valor.toFixed(2);
+        } else {
+            // Fallback: buscar por data attribute
+            const inputs = document.querySelectorAll(`input[data-servico-nome="${nomeServico}"]`);
+            if (inputs.length > 0) {
+                inputs[0].value = servicoOriginal.valor.toFixed(2);
+            }
+        }
+        salvarPrecosNoStorage();
+        mostrarToast(`Preço de "${nomeServico}" restaurado para R$ ${servicoOriginal.valor.toFixed(2)}`, 'info');
+        
+        // Atualizar também na tabela de preços se estiver visível
+        if (typeof filtrarServicos === 'function') {
+            filtrarServicos();
+        }
+    }
+}
+
+// Salvar todos os preços
+function salvarPrecos() {
+    const inputs = document.querySelectorAll('#admin-tbody-precos input[type="number"]');
+    let alteracoes = 0;
+    
+    inputs.forEach(input => {
+        const nomeServico = input.getAttribute('data-servico-nome');
+        const novoPreco = parseFloat(input.value);
+        
+        if (!isNaN(novoPreco) && novoPreco >= 0) {
+            const servico = servicos.find(s => s.nome === nomeServico);
+            if (servico && servico.valor !== novoPreco) {
+                servico.valor = novoPreco;
+                alteracoes++;
+            }
+        }
+    });
+    
+    salvarPrecosNoStorage();
+    mostrarToast(`${alteracoes > 0 ? alteracoes + ' preço(s) salvos com sucesso!' : 'Nenhuma alteração detectada.'}`, alteracoes > 0 ? 'success' : 'info');
+    
+    // Atualizar também na tabela de preços se estiver visível
+    if (typeof filtrarServicos === 'function') {
+        filtrarServicos();
+    }
+}
+
+// Restaurar todos os preços para os valores padrão
+function restaurarPrecosPadrao() {
+    if (!confirm('Tem certeza que deseja restaurar todos os preços para os valores padrão? Esta ação não pode ser desfeita.')) {
+        return;
+    }
+    
+    servicos.forEach(servico => {
+        const servicoOriginal = servicosOriginais.find(s => s.nome === servico.nome);
+        if (servicoOriginal) {
+            servico.valor = servicoOriginal.valor;
+        }
+    });
+    
+    localStorage.removeItem('servicos_precos');
+    renderizarTabelaAdmin();
+    mostrarToast('Todos os preços foram restaurados para os valores padrão.', 'success');
+    
+    // Atualizar também na tabela de preços se estiver visível
+    if (typeof filtrarServicos === 'function') {
+        filtrarServicos();
+    }
+}
+
+// Exportar preços para JSON
+function exportarPrecos() {
+    const precosParaExportar = servicos.map(s => ({
+        nome: s.nome,
+        descricao: s.descricao,
+        valor: s.valor,
+        tipo: s.tipo,
+        categoria: s.categoria || null,
+        muitoUsado: s.muitoUsado || false
+    }));
+    
+    const dataStr = JSON.stringify(precosParaExportar, null, 2);
+    const dataBlob = new Blob([dataStr], { type: 'application/json' });
+    const url = URL.createObjectURL(dataBlob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `precos_catalogo_${new Date().toISOString().split('T')[0]}.json`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+    
+    mostrarToast('Preços exportados com sucesso!', 'success');
+}
+
+// Importar preços de JSON
+function importarPrecos() {
+    const input = document.getElementById('import-file');
+    if (input) {
+        input.click();
+    }
+}
+
+// Processar arquivo importado
+function processarImportacaoPrecos(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        try {
+            const precosImportados = JSON.parse(e.target.result);
+            
+            if (!Array.isArray(precosImportados)) {
+                throw new Error('Formato de arquivo inválido');
+            }
+            
+            let importados = 0;
+            precosImportados.forEach(precoImportado => {
+                const servico = servicos.find(s => s.nome === precoImportado.nome);
+                if (servico && typeof precoImportado.valor === 'number' && precoImportado.valor >= 0) {
+                    servico.valor = precoImportado.valor;
+                    importados++;
+                }
+            });
+            
+            salvarPrecosNoStorage();
+            renderizarTabelaAdmin();
+            mostrarToast(`${importados} preço(s) importado(s) com sucesso!`, 'success');
+            
+            // Atualizar também na tabela de preços se estiver visível
+            if (typeof filtrarServicos === 'function') {
+                filtrarServicos();
+            }
+        } catch (error) {
+            console.error('Erro ao importar preços:', error);
+            mostrarToast('Erro ao importar preços. Verifique se o arquivo está no formato correto.', 'error');
+        }
+    };
+    reader.readAsText(file);
+    
+    // Limpar input para permitir importar o mesmo arquivo novamente
+    event.target.value = '';
+}

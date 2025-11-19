@@ -95,6 +95,13 @@
                     <span>Histórico de Recibos</span>
                 </a>
             </div>
+            <div class="nav-section">
+                <div class="nav-section-title">⚙️ Administração</div>
+                <a href="#admin-precos" class="nav-item" data-page="admin-precos">
+                    <i class="fas fa-edit"></i>
+                    <span>Editar Preços</span>
+                </a>
+            </div>
             <div class="sidebar-footer">
                 <button class="sidebar-toggle-compact" id="sidebar-toggle-compact" aria-label="Compactar/Expandir menu">
                     <i class="fas fa-chevron-left"></i>
@@ -128,6 +135,10 @@
                 <div class="page-header">
                     <h2><i class="fas fa-tags"></i> Tabela de Preços</h2>
                     <p class="page-subtitle">Consulta rápida de preços de todos os serviços</p>
+                    <div class="tool-description">
+                        <i class="fas fa-info-circle"></i>
+                        <p>Consulte todos os preços do catálogo de serviços. Use os filtros para encontrar rapidamente o que precisa por tipo (Xerox, Impressão, Fotos, etc.) ou busque por nome ou descrição.</p>
+                    </div>
                 </div>
                 <div class="filtro-container">
                     <div class="filtro-wrapper">
@@ -165,6 +176,10 @@
                 <div class="page-header">
                     <h2><i class="fas fa-images"></i> Tamanhos e Preços de Fotos</h2>
                     <p class="page-subtitle">Formatos disponíveis e valores</p>
+                    <div class="tool-description">
+                        <i class="fas fa-info-circle"></i>
+                        <p>Visualize todos os tamanhos de fotos disponíveis com suas dimensões em centímetros e preços. Útil para consulta rápida durante o atendimento ao cliente.</p>
+                    </div>
                 </div>
                 <div class="fotos-grid" id="fotos-grid"></div>
             </div>
@@ -174,6 +189,10 @@
                 <div class="page-header">
                     <h2><i class="fas fa-camera-retro"></i> Formatos Polaroid/Instax</h2>
                     <p class="page-subtitle">Biblioteca de formatos de impressão com medidas milimétricas</p>
+                    <div class="tool-description">
+                        <i class="fas fa-info-circle"></i>
+                        <p>Biblioteca completa de formatos Polaroid e Instax com medidas precisas em milímetros. Inclui formatos oficiais (filmes reais) e personalizados para design. Use para configurar trabalhos de impressão com precisão.</p>
+                    </div>
                 </div>
                 <div class="polaroid-filtro-container">
                     <select id="filtro-categoria-polaroid" class="select-filtro">
@@ -190,6 +209,10 @@
                 <div class="page-header">
                     <h2><i class="fas fa-ruler-combined"></i> Calculadora de Medidas</h2>
                     <p class="page-subtitle">Converta medidas e identifique tamanhos padrão</p>
+                    <div class="tool-description">
+                        <i class="fas fa-info-circle"></i>
+                        <p>Esta ferramenta converte medidas entre centímetros, milímetros e polegadas. Ela também identifica automaticamente tamanhos padrão (A0-A8) e tamanhos de fotos, além de sugerir quantas unidades cabem em folhas A4 ou A3.</p>
+                    </div>
                 </div>
                 <div class="calculadora-container">
                 <div class="calculadora-input">
@@ -256,6 +279,10 @@
                 <div class="page-header">
                     <h2><i class="fas fa-percent"></i> Calculadora de Desconto & Custo</h2>
                     <p class="page-subtitle">Calcule descontos e custos de produtos</p>
+                    <div class="tool-description">
+                        <i class="fas fa-info-circle"></i>
+                        <p>Use esta calculadora para calcular o preço final com desconto percentual e o valor economizado. Também calcule o custo total multiplicando o preço unitário pela quantidade desejada.</p>
+                    </div>
                 </div>
                 <div class="tool-container">
                     <div class="tool-card">
@@ -312,6 +339,10 @@
                 <div class="page-header">
                     <h2><i class="fas fa-calculator"></i> Quantidade por Folha</h2>
                     <p class="page-subtitle">Calcule quantas unidades cabem em uma folha</p>
+                    <div class="tool-description">
+                        <i class="fas fa-info-circle"></i>
+                        <p>Esta ferramenta calcula quantas unidades de um determinado tamanho cabem em uma folha (A4, A3, A2 ou personalizada). Útil para otimizar o uso de papel e calcular quantas folhas são necessárias para uma quantidade específica de itens.</p>
+                    </div>
                 </div>
                 <div class="tool-container">
                     <div class="tool-card">
@@ -370,6 +401,10 @@
                 <div class="page-header">
                     <h2><i class="fas fa-chart-line"></i> Calculadora de Margem de Lucro</h2>
                     <p class="page-subtitle">Calcule margem de lucro e preço de venda</p>
+                    <div class="tool-description">
+                        <i class="fas fa-info-circle"></i>
+                        <p>Calcule o preço de venda necessário para atingir uma margem de lucro desejada, ou descubra qual é a margem de lucro de um produto com base no custo e preço de venda. Essencial para precificação estratégica.</p>
+                    </div>
                 </div>
                 <div class="tool-container">
                     <div class="tool-card">
@@ -430,6 +465,10 @@
                 <div class="page-header">
                     <h2><i class="fas fa-square"></i> Calculadora de Preço por m²</h2>
                     <p class="page-subtitle">Calcule preço por metro quadrado</p>
+                    <div class="tool-description">
+                        <i class="fas fa-info-circle"></i>
+                        <p>Calcule o preço por metro quadrado de um material ou serviço com base no preço total e nas dimensões (largura e altura). Útil para comparar preços de materiais de diferentes tamanhos.</p>
+                    </div>
                 </div>
                 <div class="tool-container">
                     <div class="tool-card">
@@ -468,7 +507,7 @@
             <div class="page" id="page-orcamento-rapido" data-page="orcamento-rapido" style="display: none;">
                 <div class="page-header">
                     <h2><i class="fas fa-file-invoice-dollar"></i> Gerador de Orçamento Rápido</h2>
-                    <p class="page-subtitle">Crie orçamentos rapidamente</p>
+                    <p class="page-subtitle">Crie orçamentos rapidamente adicionando itens e calculando totais com desconto</p>
                 </div>
                 <div class="tool-container">
                     <div class="tool-card">
@@ -525,6 +564,10 @@
                 <div class="page-header">
                     <h2><i class="fas fa-balance-scale"></i> Comparador de Preços</h2>
                     <p class="page-subtitle">Compare preços de diferentes fornecedores ou opções</p>
+                    <div class="tool-description">
+                        <i class="fas fa-info-circle"></i>
+                        <p>Compare até 3 opções de preços diferentes (fornecedores, formatos, etc.) e identifique automaticamente a melhor opção com base no menor preço. Veja também quanto você economiza escolhendo a opção mais barata.</p>
+                    </div>
                 </div>
                 <div class="tool-container">
                     <div class="comparador-grid" id="comparador-grid">
@@ -595,6 +638,10 @@
                 <div class="page-header">
                     <h2><i class="fas fa-receipt"></i> Recibos e Ordens de Serviço</h2>
                     <p class="page-subtitle">Gere recibos e O.S. profissionais para impressão</p>
+                    <div class="tool-description">
+                        <i class="fas fa-info-circle"></i>
+                        <p>Gere recibos e ordens de serviço profissionais com dados do cliente, itens do pedido, forma de pagamento e observações. Os recibos podem ser impressos ou enviados por WhatsApp. Todos os recibos são salvos no histórico.</p>
+                    </div>
                 </div>
                 <div class="recibo-container">
                     <div class="recibo-form">
@@ -717,6 +764,63 @@
                         <small>Os recibos aparecerão aqui após serem impressos</small>
                     </div>
                 </div>
+            </div>
+
+            <!-- Página: Administração de Preços -->
+            <div class="page" id="page-admin-precos" data-page="admin-precos" style="display: none;">
+                <div class="page-header">
+                    <h2><i class="fas fa-edit"></i> Administração de Preços</h2>
+                    <p class="page-subtitle">Edite os preços do catálogo completo</p>
+                    <div class="tool-description">
+                        <i class="fas fa-info-circle"></i>
+                        <p>Gerencie todos os preços do sistema. Edite os valores diretamente na tabela e salve as alterações. Os preços são salvos localmente no navegador e persistem entre sessões. Use o botão "Restaurar Padrão" para voltar aos preços originais.</p>
+                    </div>
+                </div>
+                <div class="admin-actions">
+                    <button class="btn-calculadora" onclick="salvarPrecos()">
+                        <i class="fas fa-save"></i> Salvar Alterações
+                    </button>
+                    <button class="btn-calculadora" onclick="restaurarPrecosPadrao()" style="background: var(--gray-medium);">
+                        <i class="fas fa-undo"></i> Restaurar Padrão
+                    </button>
+                    <button class="btn-calculadora" onclick="exportarPrecos()" style="background: var(--emerald);">
+                        <i class="fas fa-download"></i> Exportar Preços
+                    </button>
+                    <button class="btn-calculadora" onclick="importarPrecos()" style="background: var(--cyan);">
+                        <i class="fas fa-upload"></i> Importar Preços
+                    </button>
+                </div>
+                <div class="admin-filtros">
+                    <div class="filtro-wrapper">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="admin-busca-precos" placeholder="Buscar serviço..." class="input-busca">
+                    </div>
+                    <select id="admin-filtro-tipo" class="select-filtro">
+                        <option value="todos">Todos os tipos</option>
+                        <option value="xerox">Xerox</option>
+                        <option value="impressao">Impressão</option>
+                        <option value="envelope">Envelope</option>
+                        <option value="foto">Fotos</option>
+                        <option value="combo">🔥 Kits Promocionais</option>
+                    </select>
+                </div>
+                <div class="admin-table-container">
+                    <table class="admin-table" id="admin-table-precos">
+                        <thead>
+                            <tr>
+                                <th>Serviço</th>
+                                <th>Descrição</th>
+                                <th>Tipo</th>
+                                <th>Preço (R$)</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-tbody-precos">
+                            <!-- Itens serão inseridos aqui -->
+                        </tbody>
+                    </table>
+                </div>
+                <input type="file" id="import-file" accept=".json" style="display: none;" onchange="processarImportacaoPrecos(event)">
             </div>
         </div>
     </main>

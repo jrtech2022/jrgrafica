@@ -374,6 +374,44 @@ body {
     margin: 0;
 }
 
+.tool-description {
+    background: linear-gradient(135deg, rgba(37, 99, 235, 0.1) 0%, rgba(59, 130, 246, 0.05) 100%);
+    border-left: 4px solid var(--secondary-blue);
+    border-radius: var(--border-radius);
+    padding: 1rem 1.25rem;
+    margin-top: 1rem;
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+}
+
+.tool-description i {
+    color: var(--secondary-blue);
+    font-size: 1.25rem;
+    margin-top: 0.125rem;
+    flex-shrink: 0;
+}
+
+.tool-description p {
+    color: var(--gray-dark);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.page-dark .tool-description {
+    background: rgba(255, 255, 255, 0.1);
+    border-left-color: var(--cyan);
+}
+
+.page-dark .tool-description i {
+    color: var(--cyan);
+}
+
+.page-dark .tool-description p {
+    color: rgba(255, 255, 255, 0.9);
+}
+
 .container {
     max-width: 100%;
     margin: 0 auto;
@@ -490,6 +528,137 @@ body {
 
 .comparador-resultado {
     margin-top: 2rem;
+}
+
+/* Administração de Preços */
+.admin-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background: var(--gray-light);
+    border-radius: var(--border-radius);
+}
+
+.admin-actions .btn-calculadora {
+    flex: 1;
+    min-width: 150px;
+}
+
+.admin-filtros {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.admin-filtros .filtro-wrapper {
+    flex: 1;
+    min-width: 200px;
+}
+
+.admin-filtros .select-filtro {
+    min-width: 180px;
+}
+
+.admin-table-container {
+    background: var(--white);
+    border-radius: var(--border-radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    overflow-x: auto;
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.admin-table thead {
+    background: var(--gradient-primary);
+    color: var(--white);
+}
+
+.admin-table th {
+    padding: 1rem;
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.admin-table td {
+    padding: 1rem;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.admin-table tbody tr:hover {
+    background: var(--gray-light);
+}
+
+.admin-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.admin-table input[type="number"] {
+    width: 100%;
+    padding: 0.5rem;
+    border: 2px solid #e2e8f0;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--secondary-blue);
+    transition: var(--transition);
+}
+
+.admin-table input[type="number"]:focus {
+    outline: none;
+    border-color: var(--secondary-blue);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.admin-table .badge-tipo {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.admin-actions-buttons {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.admin-btn-edit,
+.admin-btn-reset {
+    padding: 0.5rem;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: var(--transition);
+    font-size: 0.875rem;
+}
+
+.admin-btn-edit {
+    background: var(--secondary-blue);
+    color: var(--white);
+}
+
+.admin-btn-edit:hover {
+    background: var(--primary-blue);
+}
+
+.admin-btn-reset {
+    background: var(--gray-medium);
+    color: var(--white);
+}
+
+.admin-btn-reset:hover {
+    background: #64748b;
 }
 
 /* Orçamento */
@@ -1720,6 +1889,155 @@ body.no-scroll {
 
     .orcamento-actions {
         flex-direction: column;
+    }
+
+    /* Otimizações específicas para Orçamento Rápido em mobile */
+    #page-orcamento-rapido .tool-container {
+        gap: 1rem;
+    }
+
+    #page-orcamento-rapido .tool-card {
+        padding: 1.25rem;
+    }
+
+    #page-orcamento-rapido .tool-card h3 {
+        font-size: 1.1rem;
+        margin-bottom: 1rem;
+    }
+
+    #page-orcamento-rapido .input-group-row {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    #page-orcamento-rapido .input-group {
+        margin-bottom: 0.75rem;
+    }
+
+    #page-orcamento-rapido .input-group label {
+        font-size: 0.9rem;
+        margin-bottom: 0.5rem;
+    }
+
+    #page-orcamento-rapido .input-group input,
+    #page-orcamento-rapido .input-group select {
+        font-size: 1rem;
+        padding: 0.75rem;
+    }
+
+    #page-orcamento-rapido .btn-calculadora {
+        width: 100%;
+        padding: 0.875rem;
+        font-size: 0.95rem;
+    }
+
+    .item-orcamento {
+        flex-wrap: wrap;
+        padding: 0.875rem;
+        gap: 0.5rem;
+    }
+
+    .item-orcamento-info {
+        min-width: 100%;
+        margin-bottom: 0.5rem;
+    }
+
+    .item-orcamento-valor {
+        font-size: 1rem;
+        flex: 1;
+    }
+
+    .item-orcamento-remove {
+        padding: 0.5rem;
+        margin-left: 0.5rem;
+    }
+
+    .orcamento-total {
+        margin-top: 1.5rem;
+        padding-top: 1.5rem;
+    }
+
+    .orcamento-total .input-group {
+        margin-bottom: 1rem;
+    }
+
+    .orcamento-total .resultado-item {
+        padding: 0.625rem 0;
+        font-size: 0.95rem;
+    }
+
+    .orcamento-total .resultado-item.total {
+        font-size: 1.15rem;
+        padding: 0.875rem 0;
+    }
+
+    .orcamento-total .resultado-item.total strong {
+        font-size: 1.35rem;
+    }
+
+    #lista-itens-orcamento {
+        max-height: 50vh;
+        overflow-y: auto;
+        padding-right: 0.5rem;
+    }
+
+    #lista-itens-orcamento::-webkit-scrollbar {
+        width: 4px;
+    }
+
+    #lista-itens-orcamento::-webkit-scrollbar-track {
+        background: var(--gray-light);
+        border-radius: 2px;
+    }
+
+    #lista-itens-orcamento::-webkit-scrollbar-thumb {
+        background: var(--gray-medium);
+        border-radius: 2px;
+    }
+
+    /* Responsividade - Administração */
+    .admin-actions {
+        flex-direction: column;
+    }
+
+    .admin-actions .btn-calculadora {
+        width: 100%;
+    }
+
+    .admin-filtros {
+        flex-direction: column;
+    }
+
+    .admin-filtros .filtro-wrapper,
+    .admin-filtros .select-filtro {
+        width: 100%;
+    }
+
+    .admin-table-container {
+        overflow-x: auto;
+    }
+
+    .admin-table {
+        min-width: 600px;
+    }
+
+    .admin-table th,
+    .admin-table td {
+        padding: 0.75rem;
+        font-size: 0.875rem;
+    }
+
+    .admin-actions-buttons {
+        flex-direction: column;
+    }
+
+    .tool-description {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .tool-description i {
+        margin-top: 0;
     }
 }
 
