@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="Sistema gráfica Jr_Tech_OFC - Ferramentas completas para produtividade">
+    <meta name="theme-color" content="#1e3a8a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Jr_Tech_OFC">
+    <title>Jr_Tech_OFC - Sistema Gráfica</title>
+    <link rel="manifest" href="./manifest.json">
+    <link rel="icon" type="image/png" href="./icons/android/mipmap-mdpi/ic_launcher.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="./icons/ios/AppIcon.appiconset/Icon-App-60x60@3x.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="./icons/ios/AppIcon.appiconset/Icon-App-76x76@2x.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="./icons/ios/AppIcon.appiconset/Icon-App-60x60@2x.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="./icons/ios/AppIcon.appiconset/Icon-App-76x76@1x.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="./icons/ios/AppIcon.appiconset/Icon-App-60x60@2x.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Sidebar Lateral Esquerda -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <i class="fas fa-print"></i>
+                <span>Jr_Tech_OFC</span>
+            </div>
+            <button class="sidebar-close" id="sidebar-close" aria-label="Fechar menu">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="nav-section">
+                <div class="nav-section-title">📊 Preços & Produtos</div>
+                <a href="#precos" class="nav-item active" data-page="precos">
+                    <i class="fas fa-tags"></i>
+                    <span>Tabela de Preços</span>
+                </a>
+                <a href="#fotos" class="nav-item" data-page="fotos">
+                    <i class="fas fa-images"></i>
+                    <span>Tamanhos de Fotos</span>
+                </a>
+                <a href="#polaroid" class="nav-item" data-page="polaroid">
+                    <i class="fas fa-camera-retro"></i>
+                    <span>Formatos Polaroid</span>
+                </a>
+            </div>
+            <div class="nav-section">
+                <div class="nav-section-title">🔢 Calculadoras</div>
+                <a href="#calculadora-medidas" class="nav-item" data-page="calculadora-medidas">
+                    <i class="fas fa-ruler-combined"></i>
+                    <span>Medidas & Conversões</span>
+                </a>
+                <a href="#calculadora-desconto" class="nav-item" data-page="calculadora-desconto">
+                    <i class="fas fa-percent"></i>
+                    <span>Desconto & Custo</span>
+                </a>
+                <a href="#calculadora-quantidade" class="nav-item" data-page="calculadora-quantidade">
+                    <i class="fas fa-calculator"></i>
+                    <span>Quantidade por Folha</span>
+                </a>
+                <a href="#calculadora-margem" class="nav-item" data-page="calculadora-margem">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Margem de Lucro</span>
+                </a>
+                <a href="#calculadora-preco-m2" class="nav-item" data-page="calculadora-preco-m2">
+                    <i class="fas fa-square"></i>
+                    <span>Preço por m²</span>
+                </a>
+            </div>
+            <div class="nav-section">
+                <div class="nav-section-title">💰 Orçamentos</div>
+                <a href="#orcamento-rapido" class="nav-item" data-page="orcamento-rapido">
+                    <i class="fas fa-file-invoice-dollar"></i>
+                    <span>Orçamento Rápido</span>
+                </a>
+                <a href="#comparador-precos" class="nav-item" data-page="comparador-precos">
+                    <i class="fas fa-balance-scale"></i>
+                    <span>Comparador de Preços</span>
+                </a>
+            </div>
+            <div class="nav-section">
+                <div class="nav-section-title">📋 Recibos & O.S.</div>
+                <a href="#recibos-os" class="nav-item" data-page="recibos-os">
+                    <i class="fas fa-receipt"></i>
+                    <span>Novo Recibo / O.S.</span>
+                </a>
+                <a href="#historico-recibos" class="nav-item" data-page="historico-recibos">
+                    <i class="fas fa-history"></i>
+                    <span>Histórico de Recibos</span>
+                </a>
+            </div>
+            <div class="sidebar-footer">
+                <button class="sidebar-toggle-compact" id="sidebar-toggle-compact" aria-label="Compactar/Expandir menu">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+            </div>
+            </nav>
+    </aside>
+
+    <!-- Overlay para mobile -->
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+    <!-- Main Content -->
+    <main class="main-content" id="main-content">
+        <!-- Top Bar -->
+        <header class="topbar">
+            <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Abrir menu">
+                <i class="fas fa-bars"></i>
+            </button>
+            <h1 class="page-title" id="page-title">Tabela de Preços</h1>
+            <div class="topbar-actions">
+                <button class="btn-icon" id="theme-toggle" aria-label="Alternar tema">
+                    <i class="fas fa-moon"></i>
+                </button>
+        </div>
+    </header>
+
+        <!-- Page Container -->
+        <div class="page-container">
+            <!-- Página: Tabela de Preços -->
+            <div class="page" id="page-precos" data-page="precos">
+                <div class="page-header">
+                    <h2><i class="fas fa-tags"></i> Tabela de Preços</h2>
+                    <p class="page-subtitle">Consulta rápida de preços de todos os serviços</p>
+                </div>
+                <div class="filtro-container">
+                    <div class="filtro-wrapper">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="busca-precos" placeholder="Buscar serviço ou descrição... (Ctrl+K)" class="input-busca" aria-label="Buscar serviços">
+                    </div>
+                    <select id="filtro-tipo" class="select-filtro" aria-label="Filtrar por tipo">
+                        <option value="todos">Todos os tipos</option>
+                        <option value="xerox">Xerox</option>
+                        <option value="impressao">Impressão</option>
+                        <option value="envelope">Envelope</option>
+                        <option value="foto">Fotos</option>
+                        <option value="combo">🔥 Kits Promocionais</option>
+                    </select>
+                    <div class="resultado-contador" id="resultado-contador" style="display: none;"></div>
+                </div>
+                <div class="precos-cards" id="precos-cards"></div>
+                <div class="tabela-precos-container">
+                    <table class="tabela-precos" id="tabela-precos">
+                        <thead>
+                            <tr>
+                                <th>Serviço</th>
+                                <th>Descrição</th>
+                                <th class="text-right">Valor (R$)</th>
+                                <th>Tipo</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody-precos"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Página: Tamanhos de Fotos -->
+            <div class="page" id="page-fotos" data-page="fotos" style="display: none;">
+                <div class="page-header">
+                    <h2><i class="fas fa-images"></i> Tamanhos e Preços de Fotos</h2>
+                    <p class="page-subtitle">Formatos disponíveis e valores</p>
+                </div>
+                <div class="fotos-grid" id="fotos-grid"></div>
+            </div>
+
+            <!-- Página: Formatos Polaroid/Instax -->
+            <div class="page" id="page-polaroid" data-page="polaroid" style="display: none;">
+                <div class="page-header">
+                    <h2><i class="fas fa-camera-retro"></i> Formatos Polaroid/Instax</h2>
+                    <p class="page-subtitle">Biblioteca de formatos de impressão com medidas milimétricas</p>
+                </div>
+                <div class="polaroid-filtro-container">
+                    <select id="filtro-categoria-polaroid" class="select-filtro">
+                        <option value="todos">Todas as categorias</option>
+                        <option value="official">Oficiais (Filmes reais)</option>
+                        <option value="custom">Personalizados (Design)</option>
+                    </select>
+                </div>
+                <div class="polaroid-grid" id="polaroid-grid"></div>
+            </div>
+
+            <!-- Página: Calculadora de Medidas -->
+            <div class="page" id="page-calculadora-medidas" data-page="calculadora-medidas" style="display: none;">
+                <div class="page-header">
+                    <h2><i class="fas fa-ruler-combined"></i> Calculadora de Medidas</h2>
+                    <p class="page-subtitle">Converta medidas e identifique tamanhos padrão</p>
+                </div>
+                <div class="calculadora-container">
+                <div class="calculadora-input">
+                    <div class="input-group">
+                        <label>Largura</label>
+                        <div class="input-group-row">
+                            <input type="number" id="largura" placeholder="0" step="0.01" inputmode="decimal">
+                            <select id="unidade-largura">
+                                <option value="cm">cm</option>
+                                <option value="mm">mm</option>
+                                <option value="in">polegadas</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label>Altura</label>
+                        <div class="input-group-row">
+                            <input type="number" id="altura" placeholder="0" step="0.01" inputmode="decimal">
+                            <select id="unidade-altura">
+                                <option value="cm">cm</option>
+                                <option value="mm">mm</option>
+                                <option value="in">polegadas</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button class="btn-calculadora" onclick="calcularMedidas()">
+                        <i class="fas fa-calculator"></i> Calcular
+                    </button>
+                </div>
+                <div class="resultado-container">
+                    <div class="resultado-card">
+                        <h3>Conversões</h3>
+                        <div class="conversao-item">
+                            <span>Centímetros:</span>
+                            <strong id="resultado-cm">-</strong>
+                        </div>
+                        <div class="conversao-item">
+                            <span>Milímetros:</span>
+                            <strong id="resultado-mm">-</strong>
+                        </div>
+                        <div class="conversao-item">
+                            <span>Polegadas:</span>
+                            <strong id="resultado-in">-</strong>
+                        </div>
+                    </div>
+                    <div class="resultado-card">
+                        <h3>Tamanho Padrão</h3>
+                        <p id="tamanho-padrao" class="tamanho-detectado">-</p>
+                        <p id="detalhes-tamanho" class="detalhes-tamanho"></p>
+                    </div>
+                    <div class="resultado-card">
+                        <h3>Sugestão de Corte</h3>
+                        <p id="sugestao-corte" class="sugestao-texto">-</p>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn-imprimir" onclick="imprimirFicha()" id="btn-imprimir">
+                    <i class="fas fa-print"></i> Imprimir Ficha
+                </button>
+            </div>
+
+            <!-- Página: Calculadora de Desconto/Custo -->
+            <div class="page" id="page-calculadora-desconto" data-page="calculadora-desconto" style="display: none;">
+                <div class="page-header">
+                    <h2><i class="fas fa-percent"></i> Calculadora de Desconto & Custo</h2>
+                    <p class="page-subtitle">Calcule descontos e custos de produtos</p>
+                </div>
+                <div class="tool-container">
+                    <div class="tool-card">
+                        <h3><i class="fas fa-tag"></i> Calcular Desconto</h3>
+                        <div class="input-group">
+                            <label>Preço Original (R$)</label>
+                            <input type="number" id="preco-original" placeholder="0.00" step="0.01">
+                        </div>
+                        <div class="input-group">
+                            <label>Desconto (%)</label>
+                            <input type="number" id="desconto-percent" placeholder="0" step="0.01">
+                        </div>
+                        <button class="btn-calculadora" onclick="calcularDesconto()">
+                            <i class="fas fa-calculator"></i> Calcular
+                        </button>
+                        <div class="resultado-card" id="resultado-desconto" style="display: none;">
+                            <h4>Resultado:</h4>
+                            <div class="resultado-item">
+                                <span>Preço com Desconto:</span>
+                                <strong id="preco-descontado">R$ 0,00</strong>
+                            </div>
+                            <div class="resultado-item">
+                                <span>Valor Economizado:</span>
+                                <strong id="valor-economizado">R$ 0,00</strong>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tool-card">
+                        <h3><i class="fas fa-dollar-sign"></i> Calcular Custo Total</h3>
+                        <div class="input-group">
+                            <label>Preço Unitário (R$)</label>
+                            <input type="number" id="preco-unitario" placeholder="0.00" step="0.01">
+                        </div>
+                        <div class="input-group">
+                            <label>Quantidade</label>
+                            <input type="number" id="quantidade-custo" placeholder="0" step="1">
+                        </div>
+                        <button class="btn-calculadora" onclick="calcularCustoTotal()">
+                            <i class="fas fa-calculator"></i> Calcular
+                        </button>
+                        <div class="resultado-card" id="resultado-custo" style="display: none;">
+                            <h4>Resultado:</h4>
+                            <div class="resultado-item">
+                                <span>Custo Total:</span>
+                                <strong id="custo-total">R$ 0,00</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Página: Calculadora de Quantidade por Folha -->
+            <div class="page" id="page-calculadora-quantidade" data-page="calculadora-quantidade" style="display: none;">
+                <div class="page-header">
+                    <h2><i class="fas fa-calculator"></i> Quantidade por Folha</h2>
+                    <p class="page-subtitle">Calcule quantas unidades cabem em uma folha</p>
+                </div>
+                <div class="tool-container">
+                    <div class="tool-card">
+                        <h3>Dimensões do Item</h3>
+                        <div class="input-group">
+                            <label>Largura (cm)</label>
+                            <input type="number" id="largura-item" placeholder="0" step="0.01">
+                        </div>
+                        <div class="input-group">
+                            <label>Altura (cm)</label>
+                            <input type="number" id="altura-item" placeholder="0" step="0.01">
+                        </div>
+                        <div class="input-group">
+                            <label>Tipo de Folha</label>
+                            <select id="tipo-folha">
+                                <option value="A4">A4 (21 x 29.7 cm)</option>
+                                <option value="A3">A3 (29.7 x 42 cm)</option>
+                                <option value="A2">A2 (42 x 59.4 cm)</option>
+                                <option value="custom">Personalizado</option>
+                            </select>
+                        </div>
+                        <div id="folha-custom" style="display: none;">
+                            <div class="input-group">
+                                <label>Largura da Folha (cm)</label>
+                                <input type="number" id="largura-folha-custom" placeholder="0" step="0.01">
+                            </div>
+                            <div class="input-group">
+                                <label>Altura da Folha (cm)</label>
+                                <input type="number" id="altura-folha-custom" placeholder="0" step="0.01">
+                            </div>
+                        </div>
+                        <button class="btn-calculadora" onclick="calcularQuantidadeFolha()">
+                            <i class="fas fa-calculator"></i> Calcular
+                        </button>
+                        <div class="resultado-card" id="resultado-quantidade-folha" style="display: none;">
+                            <h4>Resultado:</h4>
+                            <div class="resultado-item">
+                                <span>Quantidade por folha:</span>
+                                <strong id="quantidade-por-folha">0</strong>
+                            </div>
+                            <div class="resultado-item">
+                                <span>Layout:</span>
+                                <strong id="layout-quantidade">0 x 0</strong>
+                            </div>
+                            <div class="resultado-item">
+                                <span>Folhas para 100 unidades:</span>
+                                <strong id="folhas-100">0</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Página: Calculadora de Margem de Lucro -->
+            <div class="page" id="page-calculadora-margem" data-page="calculadora-margem" style="display: none;">
+                <div class="page-header">
+                    <h2><i class="fas fa-chart-line"></i> Calculadora de Margem de Lucro</h2>
+                    <p class="page-subtitle">Calcule margem de lucro e preço de venda</p>
+                </div>
+                <div class="tool-container">
+                    <div class="tool-card">
+                        <h3>Calcular Preço de Venda</h3>
+                        <div class="input-group">
+                            <label>Custo do Produto (R$)</label>
+                            <input type="number" id="custo-produto" placeholder="0.00" step="0.01">
+                        </div>
+                        <div class="input-group">
+                            <label>Margem de Lucro Desejada (%)</label>
+                            <input type="number" id="margem-lucro" placeholder="0" step="0.01">
+                        </div>
+                        <button class="btn-calculadora" onclick="calcularPrecoVenda()">
+                            <i class="fas fa-calculator"></i> Calcular
+                        </button>
+                        <div class="resultado-card" id="resultado-preco-venda" style="display: none;">
+                            <h4>Resultado:</h4>
+                            <div class="resultado-item">
+                                <span>Preço de Venda:</span>
+                                <strong id="preco-venda">R$ 0,00</strong>
+                            </div>
+                            <div class="resultado-item">
+                                <span>Lucro por Unidade:</span>
+                                <strong id="lucro-unidade">R$ 0,00</strong>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tool-card">
+                        <h3>Calcular Margem de Lucro</h3>
+                        <div class="input-group">
+                            <label>Preço de Venda (R$)</label>
+                            <input type="number" id="preco-venda-margem" placeholder="0.00" step="0.01">
+                        </div>
+                        <div class="input-group">
+                            <label>Custo do Produto (R$)</label>
+                            <input type="number" id="custo-produto-margem" placeholder="0.00" step="0.01">
+                        </div>
+                        <button class="btn-calculadora" onclick="calcularMargem()">
+                            <i class="fas fa-calculator"></i> Calcular
+                        </button>
+                        <div class="resultado-card" id="resultado-margem" style="display: none;">
+                            <h4>Resultado:</h4>
+                            <div class="resultado-item">
+                                <span>Margem de Lucro:</span>
+                                <strong id="margem-calculada">0%</strong>
+                            </div>
+                            <div class="resultado-item">
+                                <span>Lucro Total:</span>
+                                <strong id="lucro-total">R$ 0,00</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Página: Calculadora de Preço por m² -->
+            <div class="page" id="page-calculadora-preco-m2" data-page="calculadora-preco-m2" style="display: none;">
+                <div class="page-header">
+                    <h2><i class="fas fa-square"></i> Calculadora de Preço por m²</h2>
+                    <p class="page-subtitle">Calcule preço por metro quadrado</p>
+                </div>
+                <div class="tool-container">
+                    <div class="tool-card">
+                        <h3>Calcular Preço por m²</h3>
+                        <div class="input-group">
+                            <label>Preço Total (R$)</label>
+                            <input type="number" id="preco-total-m2" placeholder="0.00" step="0.01">
+                        </div>
+                        <div class="input-group">
+                            <label>Largura (cm)</label>
+                            <input type="number" id="largura-m2" placeholder="0" step="0.01">
+                        </div>
+                        <div class="input-group">
+                            <label>Altura (cm)</label>
+                            <input type="number" id="altura-m2" placeholder="0" step="0.01">
+                        </div>
+                        <button class="btn-calculadora" onclick="calcularPrecoM2()">
+                            <i class="fas fa-calculator"></i> Calcular
+                        </button>
+                        <div class="resultado-card" id="resultado-preco-m2" style="display: none;">
+                            <h4>Resultado:</h4>
+                            <div class="resultado-item">
+                                <span>Área Total (m²):</span>
+                                <strong id="area-total-m2">0 m²</strong>
+                            </div>
+                            <div class="resultado-item">
+                                <span>Preço por m²:</span>
+                                <strong id="preco-por-m2">R$ 0,00</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Página: Orçamento Rápido -->
+            <div class="page" id="page-orcamento-rapido" data-page="orcamento-rapido" style="display: none;">
+                <div class="page-header">
+                    <h2><i class="fas fa-file-invoice-dollar"></i> Gerador de Orçamento Rápido</h2>
+                    <p class="page-subtitle">Crie orçamentos rapidamente</p>
+                </div>
+                <div class="tool-container">
+                    <div class="tool-card">
+                        <h3>Novo Item</h3>
+                        <div class="input-group">
+                            <label>Descrição do Serviço</label>
+                            <input type="text" id="item-descricao" placeholder="Ex: Impressão A4 Colorida">
+                        </div>
+                        <div class="input-group-row">
+                            <div class="input-group">
+                                <label>Quantidade</label>
+                                <input type="number" id="item-quantidade" placeholder="0" step="1" value="1">
+                            </div>
+                            <div class="input-group">
+                                <label>Valor Unitário (R$)</label>
+                                <input type="number" id="item-valor" placeholder="0.00" step="0.01">
+                            </div>
+                        </div>
+                        <button class="btn-calculadora" onclick="adicionarItemOrcamento()">
+                            <i class="fas fa-plus"></i> Adicionar Item
+                        </button>
+                    </div>
+                    <div class="tool-card">
+                        <h3>Orçamento</h3>
+                        <div id="lista-itens-orcamento"></div>
+                        <div class="orcamento-total">
+                            <div class="resultado-item">
+                                <span>Subtotal:</span>
+                                <strong id="subtotal-orcamento">R$ 0,00</strong>
+                            </div>
+                            <div class="input-group">
+                                <label>Desconto (%)</label>
+                                <input type="number" id="desconto-orcamento" placeholder="0" step="0.01" value="0" oninput="atualizarTotalOrcamento()">
+                            </div>
+                            <div class="resultado-item total">
+                                <span>TOTAL:</span>
+                                <strong id="total-orcamento">R$ 0,00</strong>
+                            </div>
+                        </div>
+                        <div class="orcamento-actions">
+                            <button class="btn-calculadora" onclick="limparOrcamento()">
+                                <i class="fas fa-trash"></i> Limpar
+                            </button>
+                            <button class="btn-calculadora" onclick="imprimirOrcamento()">
+                                <i class="fas fa-print"></i> Imprimir
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Página: Comparador de Preços -->
+            <div class="page" id="page-comparador-precos" data-page="comparador-precos" style="display: none;">
+                <div class="page-header">
+                    <h2><i class="fas fa-balance-scale"></i> Comparador de Preços</h2>
+                    <p class="page-subtitle">Compare preços de diferentes fornecedores ou opções</p>
+                </div>
+                <div class="tool-container">
+                    <div class="comparador-grid" id="comparador-grid">
+                        <div class="comparador-item">
+                            <h3>Opção 1</h3>
+                            <div class="input-group">
+                                <label>Descrição</label>
+                                <input type="text" id="opcao1-desc" placeholder="Ex: Fornecedor A">
+                            </div>
+                            <div class="input-group">
+                                <label>Preço (R$)</label>
+                                <input type="number" id="opcao1-preco" placeholder="0.00" step="0.01" oninput="compararPrecos()">
+                            </div>
+                            <div class="resultado-item" id="resultado-opcao1" style="display: none;">
+                                <span>Diferença:</span>
+                                <strong id="diferenca-opcao1">-</strong>
+                            </div>
+                        </div>
+                        <div class="comparador-item">
+                            <h3>Opção 2</h3>
+                            <div class="input-group">
+                                <label>Descrição</label>
+                                <input type="text" id="opcao2-desc" placeholder="Ex: Fornecedor B">
+                            </div>
+                            <div class="input-group">
+                                <label>Preço (R$)</label>
+                                <input type="number" id="opcao2-preco" placeholder="0.00" step="0.01" oninput="compararPrecos()">
+                            </div>
+                            <div class="resultado-item" id="resultado-opcao2" style="display: none;">
+                                <span>Diferença:</span>
+                                <strong id="diferenca-opcao2">-</strong>
+                            </div>
+                        </div>
+                        <div class="comparador-item">
+                            <h3>Opção 3</h3>
+                            <div class="input-group">
+                                <label>Descrição</label>
+                                <input type="text" id="opcao3-desc" placeholder="Ex: Fornecedor C">
+                            </div>
+                            <div class="input-group">
+                                <label>Preço (R$)</label>
+                                <input type="number" id="opcao3-preco" placeholder="0.00" step="0.01" oninput="compararPrecos()">
+                            </div>
+                            <div class="resultado-item" id="resultado-opcao3" style="display: none;">
+                                <span>Diferença:</span>
+                                <strong id="diferenca-opcao3">-</strong>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="comparador-resultado" id="comparador-resultado" style="display: none;">
+                        <h3>Melhor Opção</h3>
+                        <div class="resultado-card">
+                            <div class="resultado-item total">
+                                <span id="melhor-opcao-desc">-</span>
+                                <strong id="melhor-opcao-preco">R$ 0,00</strong>
+                            </div>
+                            <div class="resultado-item">
+                                <span>Economia:</span>
+                                <strong id="economia-comparador">R$ 0,00</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Página: Recibos e O.S. -->
+            <div class="page page-dark" id="page-recibos-os" data-page="recibos-os" style="display: none;">
+                <div class="page-header">
+                    <h2><i class="fas fa-receipt"></i> Recibos e Ordens de Serviço</h2>
+                    <p class="page-subtitle">Gere recibos e O.S. profissionais para impressão</p>
+                </div>
+                <div class="recibo-container">
+                    <div class="recibo-form">
+                        <div class="recibo-section">
+                            <h3><i class="fas fa-info-circle"></i> Dados do Pedido</h3>
+                            <div class="input-group-row-2">
+                                <div class="input-group">
+                                    <label>Número do Pedido</label>
+                                    <input type="text" id="recibo-numero" placeholder="Ex: #001">
+                                </div>
+                                <div class="input-group">
+                                    <label>Data</label>
+                                    <input type="date" id="recibo-data">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="recibo-section">
+                            <h3><i class="fas fa-user"></i> Dados do Cliente</h3>
+                            <div class="input-group">
+                                <label>Nome Completo</label>
+                                <input type="text" id="recibo-cliente-nome" placeholder="Nome do cliente">
+                            </div>
+                            <div class="input-group">
+                                <label>Telefone/WhatsApp</label>
+                                <input type="text" id="recibo-cliente-telefone" placeholder="(99) 99999-9999" inputmode="tel">
+                            </div>
+                        </div>
+                        <div class="recibo-section">
+                            <h3><i class="fas fa-list"></i> Itens do Serviço</h3>
+                            <div class="itens-table-header">
+                                <div class="item-col-qtd">Qtd</div>
+                                <div class="item-col-desc">Descrição</div>
+                                <div class="item-col-valor">Valor Unit.</div>
+                                <div class="item-col-total">Subtotal</div>
+                                <div class="item-col-action"></div>
+                            </div>
+                            <div id="recibo-itens-lista" class="itens-lista">
+                                <!-- Itens serão adicionados aqui -->
+                            </div>
+                            <div class="recibo-opcoes-rapidas">
+                                <div class="opcoes-rapidas-header">
+                                    <h4><i class="fas fa-bolt"></i> Opções Rápidas</h4>
+                                    <small>Clique para adicionar diretamente</small>
+                                </div>
+                                <div class="opcoes-rapidas-grid" id="opcoes-rapidas-grid">
+                                    <!-- Botões serão inseridos aqui -->
+                                </div>
+                            </div>
+                            <div class="recibo-busca-servico">
+                                <div class="input-group">
+                                    <label>
+                                        <i class="fas fa-search"></i> Buscar Serviço da Tabela
+                                    </label>
+                                    <div class="servico-autocomplete">
+                                        <input 
+                                            type="text" 
+                                            id="recibo-busca-servico" 
+                                            placeholder="Digite para buscar (ex: Foto, Xerox, Kit...)"
+                                            autocomplete="off"
+                                        >
+                                        <div class="servico-suggestions" id="recibo-suggestions" style="display: none;">
+                                            <!-- Sugestões aparecerão aqui -->
+                                        </div>
+                                    </div>
+                                    <small class="help-text">Busque e selecione um serviço para preencher automaticamente</small>
+                                </div>
+                            </div>
+                            <button class="btn-adicionar-item" onclick="adicionarItemRecibo()">
+                                <i class="fas fa-plus"></i> Adicionar Item Manualmente
+                            </button>
+                            <div class="recibo-total-section">
+                                <div class="total-item">
+                                    <span>TOTAL:</span>
+                                    <strong id="recibo-total">R$ 0,00</strong>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="recibo-section">
+                            <h3><i class="fas fa-money-bill-wave"></i> Forma de Pagamento</h3>
+                            <select id="recibo-pagamento" class="select-filtro">
+                                <option value="Pix">Pix</option>
+                                <option value="Dinheiro">Dinheiro</option>
+                                <option value="Cartão Crédito">Cartão Crédito</option>
+                                <option value="Cartão Débito">Cartão Débito</option>
+                            </select>
+                        </div>
+                        <div class="recibo-section">
+                            <h3><i class="fas fa-sticky-note"></i> Observações</h3>
+                            <textarea id="recibo-observacoes" rows="3" placeholder="Anotações adicionais (prazos, entrega, etc.)"></textarea>
+                        </div>
+                        <button class="btn-gerar-recibo" onclick="gerarRecibo()">
+                            <i class="fas fa-file-invoice"></i> Gerar Recibo
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Página: Histórico de Recibos -->
+            <div class="page page-dark" id="page-historico-recibos" data-page="historico-recibos" style="display: none;">
+                <div class="page-header">
+                    <h2><i class="fas fa-history"></i> Histórico de Recibos</h2>
+                    <p class="page-subtitle">Visualize todos os recibos já emitidos</p>
+                </div>
+                <div class="historico-container">
+                    <div class="historico-filtros">
+                        <div class="input-group">
+                            <label><i class="fas fa-search"></i> Buscar</label>
+                            <input type="text" id="historico-busca" placeholder="Buscar por número, cliente, data...">
+                        </div>
+                        <button class="btn-limpar-historico" onclick="limparHistoricoRecibos()">
+                            <i class="fas fa-trash-alt"></i> Limpar Histórico
+                        </button>
+                    </div>
+                    <div id="historico-recibos-lista" class="historico-lista">
+                        <!-- Recibos serão listados aqui -->
+                    </div>
+                    <div id="historico-vazio" class="historico-vazio" style="display: none;">
+                        <i class="fas fa-receipt"></i>
+                        <p>Nenhum recibo encontrado</p>
+                        <small>Os recibos aparecerão aqui após serem impressos</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Jr_Tech_OFC</h3>
+                <p>Fotografia, Edição e Personalizados</p>
+            </div>
+            <div class="footer-section">
+                <h4>Contato</h4>
+                <p><i class="fab fa-whatsapp"></i> (99) 98278-5958</p>
+                <p><i class="fas fa-envelope"></i> jrtechofc@email.com</p>
+            </div>
+            <div class="footer-section">
+                <h4>Localização</h4>
+                <p><i class="fas fa-map-marker-alt"></i> R. Projetada - Recanto Universitário</p>
+                <p>Imperatriz - MA, 65914-073</p>
+            </div>
+            <div class="footer-section">
+                <h4>Sistema</h4>
+                <p>© 2024 Jr_Tech_OFC</p>
+                <p>Todos os direitos reservados</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal de Pré-visualização do Recibo -->
+    <div class="recibo-modal" id="recibo-modal">
+        <div class="recibo-modal-content">
+            <div class="recibo-modal-header">
+                <h3><i class="fas fa-file-invoice"></i> Pré-visualização do Recibo</h3>
+                <button class="recibo-modal-close" onclick="fecharModalRecibo()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="recibo-modal-body" id="recibo-preview">
+                <!-- Conteúdo do recibo será inserido aqui -->
+            </div>
+            <div class="recibo-modal-footer">
+                <button class="btn-whatsapp" onclick="enviarWhatsAppRecibo()">
+                    <i class="fab fa-whatsapp"></i> Enviar WhatsApp
+                </button>
+                <button class="btn-calculadora" onclick="imprimirRecibo()">
+                    <i class="fas fa-print"></i> Imprimir
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Botão Voltar ao Topo -->
+    <button class="scroll-to-top" id="scrollToTop" aria-label="Voltar ao topo">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast"></div>
+
+    <script src="script.js"></script>
+    <script>
+        // Registrar service worker para PWA
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(reg => console.log('Service Worker registrado:', reg))
+                    .catch(err => console.log('Service Worker erro:', err));
+            });
+        }
+    </script>
+</body>
+</html>
